@@ -6,7 +6,6 @@ Metrics/ClassLength:
   Max: 1500
 Metrics/BlockLength:
   Max: 50
-  Exclude:
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: space
 Style/SymbolArray:
@@ -17,8 +16,10 @@ Layout/HashAlignment:
 Style/Documentation:
   Enabled: false
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.5
 Style/FrozenStringLiteralComment:
   Enabled: false
 Naming/FileName:
+  Enabled: false
+Style/ClassAndModuleChildren:
   Enabled: false

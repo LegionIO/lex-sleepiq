@@ -1,10 +1,6 @@
-module Legion
-  module Extensions
-    module Sleepiq
-      module Runners
-        module Family
-        end
-      end
+module Legion::Extensions::Sleepiq
+  module Runners
+    module Family
     end
   end
 end

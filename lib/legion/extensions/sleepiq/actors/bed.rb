@@ -1,12 +1,6 @@
-require 'legion/extensions/sleepiq/runners/bed'
-
-module Legion
-  module Extensions
-    module Sleepiq
-      module Actor
-        class Bed < Legion::Extensions::Actors::Subscription
-        end
-      end
+module Legion::Extensions::Sleepiq
+  module Actor
+    class Bed < Legion::Extensions::Actors::Subscription
     end
   end
 end
