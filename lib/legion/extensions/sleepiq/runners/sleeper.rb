@@ -1,6 +1,9 @@
 module Legion::Extensions::Sleepiq
   module Runners
     module Sleeper
+      include Legion::Extensions::Helpers::Lex
+      extend Legion::Extensions::Sleepiq::Helpers::Client
+
       def self.status(payload); end
 
       def self.preset(payload); end

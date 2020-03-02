@@ -1,14 +1,15 @@
 module Legion::Extensions::Sleepiq
   module Runners
     module Pump
-      def self.pump_status(_payload)
-        sleep = SleepIQ.new
-        sleep.pump_status
+      include Legion::Extensions::Helpers::Lex
+      extend Legion::Extensions::Sleepiq::Helpers::Client
+
+      def pump_status(bedid: nil, **opts)
+        return normalize(client.pump_status)
       end
 
-      def self.force_idle(_payload)
-        sleep = SleepIQ.new
-        sleep.force_idle
+      def force_idle(bedid: nil, **opts)
+        return normalize(client.force_idle)
       end
     end
   end

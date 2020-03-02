@@ -1,6 +1,9 @@
 module Legion::Extensions::Sleepiq
   module Runners
     module Bed
+      include Legion::Extensions::Helpers::Lex
+      extend Legion::Extensions::Sleepiq::Helpers::Client
+
       def self.family_status(payload); end
 
       def self.get_sleep_number_favorite(payload); end
