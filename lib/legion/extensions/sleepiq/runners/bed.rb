@@ -8,13 +8,13 @@ module Legion::Extensions::Sleepiq
 
       def self.get_sleep_number_favorite(payload); end
 
-      def self.set_sleep_number_favorite(payload); end
+      def self.set_sleep_number_favorite(payload); end # rubocop:disable Naming/AccessorMethodName
 
       def self.status(payload); end
 
       def self.get_pause_mode(payload); end
 
-      def self.set_pause_mode(payload); end
+      def self.set_pause_mode(payload); end # rubocop:disable Naming/AccessorMethodName
 
       def self.get(payload); end
     end

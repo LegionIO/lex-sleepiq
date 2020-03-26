@@ -3,15 +3,15 @@ require 'sleepiq'
 module Legion::Extensions::Sleepiq
   module Helpers
     module Client
-      def client(**opts)
+      def client(**_opts)
         @awsalb = Legion::Cache.get('sleepiq_awsalb')
         @bedid = Legion::Cache.get('sleepiq_bedid')
         @key = Legion::Cache.get('sleepiq_key')
         @sessid = Legion::Cache.get('sleepiq_sessid')
 
         login if @awsalb.nil? || @key.nil? || @sessid.nil?
-        return ::SleepIQ::Client.new(awsalb: @awsalb, key: @key, sessid: @sessid, bedid: @bedid)
-      rescue => e
+        ::SleepIQ::Client.new(awsalb: @awsalb, key: @key, sessid: @sessid, bedid: @bedid)
+      rescue StandardError => e
         Legion::Logging.fatal e.message
         Legion::Logging.fatal e.backtrace
         raise(e)
@@ -29,22 +29,12 @@ module Legion::Extensions::Sleepiq
         @bedid = result.bedid
       end
 
-      def username(username: nil)
-        @username unless @username.nil?
-        @username = username unless username.nil?
-        @username = ENV['sleepiq_username'] unless ENV['sleepiq_username'].nil?
-        cache = Legion::Cache.get('sleepiq_username') if Legion::Settings[:cache][:connected]
-        @username = cache unless cache.nil? if Legion::Settings[:cache][:connected]
-        @username = settings['username']
+      def username(**opts)
+        @username = find_setting('username', opts)
       end
 
-      def password(password: nil)
-        @password unless @password.nil?
-        @password = password unless password.nil?
-        @password = ENV['sleepiq_password'] unless ENV['sleepiq_password'].nil?
-        cache = Legion::Cache.get('sleepiq_password') if Legion::Settings[:cache][:connected]
-        @password = cache unless cache.nil? if Legion::Settings[:cache][:connected]
-        @password = settings['password']
+      def password(**opts)
+        @password = find_setting('password', opts)
       end
     end
   end

@@ -4,12 +4,12 @@ module Legion::Extensions::Sleepiq
       include Legion::Extensions::Helpers::Lex
       extend Legion::Extensions::Sleepiq::Helpers::Client
 
-      def pump_status(bedid: nil, **opts)
-        return normalize(client.pump_status)
+      def pump_status(bedid: nil, **_opts)
+        normalize(client.pump_status)
       end
 
-      def force_idle(bedid: nil, **opts)
-        return normalize(client.force_idle)
+      def force_idle(bedid: nil, **_opts)
+        normalize(client.force_idle)
       end
     end
   end
