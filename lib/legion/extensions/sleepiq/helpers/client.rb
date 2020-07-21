@@ -30,11 +30,11 @@ module Legion::Extensions::Sleepiq
       end
 
       def username(**opts)
-        @username = find_setting('username', opts)
+        @username = find_setting('username', **opts)
       end
 
       def password(**opts)
-        @password = find_setting('password', opts)
+        @password = find_setting('password', **opts)
       end
     end
   end
