@@ -1,39 +1,49 @@
 # Legion::Extensions::Sleepiq
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/legion/extensions/sleepiq`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A Legion Extension designed to connect with SleepIQ by Sleep Number
+Uses the [sleepiq](https://rubygems.org/gems/sleepiq) gem
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'legion-extensions-sleepiq'
+gem 'lex-sleepiq'
 ```
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
-    $ gem install legion-extensions-sleepiq
+    $ gem install lex-sleepiq
+
+## Adding to Legion
+You can manually install with a `gem install lex-http` command or by adding it into your settings with something like this
+```json
+{
+  "extensions": {
+    "sleepiq": {
+      "enabled": true, 
+      "workers": 1,
+      "username": "*sleep_iq_username*",
+      "password": "*sleep_iq_password*"
+    }
+  }
+}
+```
+
+##### Runners
+|runner|description|completed?|
+|---|---|---|
+|bed|Bed functions|no|
+|family|used to query the family endpoint to get a summary|yes|
+|foundation|used to control and query foundations|no|
+|pump|used to control and query the pump|yes|
+|sleeper|Used to query the sleeper endpoint|no|
 
 ## Usage
+Control and query your bed. `Legion::Extensions::Sleepiq::Actors::Poll` will automatically every 10 seconds. This 
+will include things like person in bed status and the pump pressure
 
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/legion-extensions-sleepiq.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

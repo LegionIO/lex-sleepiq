@@ -33,5 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'rubocop-rspec'
 
-  spec.add_dependency 'sleepiq'
+  spec.add_dependency 'sleepiq', '>= 0.2.2'
 end
