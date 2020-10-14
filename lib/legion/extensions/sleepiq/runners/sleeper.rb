@@ -4,13 +4,17 @@ module Legion::Extensions::Sleepiq
       include Legion::Extensions::Helpers::Lex
       extend Legion::Extensions::Sleepiq::Helpers::Client
 
-      def self.status(payload); end
+      def sleeper(**)
+        client.sleeper
+      end
 
-      def self.preset(payload); end
+      def sleep_data(date:, interval: 'D1', **)
+        client.sleep_data(date, interval)
+      end
 
-      def self.system(payload); end
-
-      def self.motion(payload); end
+      def sleep_slice_data(date:, interval: 'D1', **)
+        client.sleep_slice_data(date, interval)
+      end
     end
   end
 end

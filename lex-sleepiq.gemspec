@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Used to connect Legion to Sleep Number SleepIQ API'
   spec.homepage      = 'https://bitbucket.org/legion-io/lex-sleepiq'
   spec.license       = 'MIT'
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.5.0')
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://bitbucket.org/legion-io/lex-sleepiq'
@@ -33,5 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'rubocop-rspec'
 
-  spec.add_dependency 'sleepiq', '>= 0.2.2'
+  spec.add_dependency 'sleepiq', '>= 0.3.0'
 end

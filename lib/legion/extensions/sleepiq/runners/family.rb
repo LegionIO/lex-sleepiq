@@ -4,7 +4,7 @@ module Legion::Extensions::Sleepiq
       include Legion::Extensions::Helpers::Lex
       extend Legion::Extensions::Sleepiq::Helpers::Client
 
-      def family_status(**_opts)
+      def family_status(**)
         results = normalize(client.family_status)
         results[:beds][0][:leftSide].delete(:lastLink)
         results[:beds][0][:rightSide].delete(:lastLink)

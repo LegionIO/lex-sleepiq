@@ -4,13 +4,29 @@ module Legion::Extensions::Sleepiq
       include Legion::Extensions::Helpers::Lex
       extend Legion::Extensions::Sleepiq::Helpers::Client
 
-      def self.status(payload); end
+      def get_light(light: 1, **)
+        client.light(light)
+      end
 
-      def self.preset(payload); end
+      def set_light(light:, setting: 0, **)
+        client.set_light(light, setting)
+      end
 
-      def self.system(payload); end
+      def preset(preset:, side: 'R', slow_speed: 0, **)
+        client.preset(preset, side, slow_speed)
+      end
 
-      def self.motion(payload); end
+      def stop_motion(side: 'R', **)
+        client.stop_motion(side)
+      end
+
+      def status(**)
+        client.foundation_status
+      end
+
+      def system(**)
+        client.system
+      end
     end
   end
 end

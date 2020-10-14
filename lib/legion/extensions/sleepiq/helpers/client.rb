@@ -19,13 +19,13 @@ module Legion::Extensions::Sleepiq
 
       def login
         result = ::SleepIQ::Client.new(username: username, password: password)
-        Legion::Cache.set('sleepiq_sessid', result.sessid, 600)
+        Legion::Cache.set('sleepiq_sessid', result.sessid, ttl: 600)
         @sessid = result.sessid
-        Legion::Cache.set('sleepiq_awsalb', result.awsalb, 600)
+        Legion::Cache.set('sleepiq_awsalb', result.awsalb, ttl: 600)
         @awsalb = result.awsalb
-        Legion::Cache.set('sleepiq_key', result.key, 600)
+        Legion::Cache.set('sleepiq_key', result.key, ttl: 600)
         @key = result.key
-        Legion::Cache.set('sleepiq_bedid', result.bedid, 600)
+        Legion::Cache.set('sleepiq_bedid', result.bedid, ttl: 600)
         @bedid = result.bedid
       end
 
