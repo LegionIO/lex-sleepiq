@@ -20,7 +20,6 @@ jobs:
   "ruby-two-five":
     docker:
       - image: circleci/ruby:2.5
-      - image: memcached:1.5-alpine
     steps:
       - checkout
       - ruby/load-cache
@@ -33,7 +32,6 @@ jobs:
   "ruby-two-six":
     docker:
       - image: circleci/ruby:2.6
-      - image: memcached:1.5-alpine
     steps:
       - checkout
       - ruby/load-cache
@@ -46,20 +44,6 @@ jobs:
   "ruby-two-seven":
     docker:
       - image: circleci/ruby:2.7
-      - image: memcached:1.5-alpine
-    steps:
-      - checkout
-      - ruby/load-cache
-      - run:
-          name: update bundler
-          command: gem update bundler
-      - ruby/install-deps
-      - ruby/run-tests
-      - ruby/save-cache
-
-  "ruby-three-rc":
-    docker:
-      - image: ruby:3.0-rc-alpine
     steps:
       - checkout
       - ruby/load-cache
@@ -82,8 +66,5 @@ workflows:
           requires:
             - ruby-two-five
       - ruby-two-seven:
-          requires:
-            - ruby-two-five
-      - ruby-three-rc:
           requires:
             - ruby-two-five
