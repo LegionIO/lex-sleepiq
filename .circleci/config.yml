@@ -57,6 +57,19 @@ jobs:
       - ruby/run-tests
       - ruby/save-cache
 
+  "ruby-three-rc":
+    docker:
+      - image: ruby:3.0-rc-alpine
+    steps:
+      - checkout
+      - ruby/load-cache
+      - run:
+      name: update bundler
+      command: gem update bundler
+      - ruby/install-deps
+      - ruby/run-tests
+      - ruby/save-cache
+
 workflows:
   version: 2
   rubocop-rspec:
@@ -69,5 +82,8 @@ workflows:
           requires:
             - ruby-two-five
       - ruby-two-seven:
+          requires:
+            - ruby-two-five
+      - ruby-three-rc:
           requires:
             - ruby-two-five
