@@ -9,6 +9,9 @@ jobs:
     steps:
       - checkout
       - ruby/load-cache
+      - run:
+          name: update bundler
+          command: gem update bundler
       - ruby/install-deps
       - run:
           name: Run Rubocop
@@ -21,6 +24,9 @@ jobs:
     steps:
       - checkout
       - ruby/load-cache
+      - run:
+          name: update bundler
+          command: gem update bundler
       - ruby/install-deps
       - ruby/run-tests
       - ruby/save-cache
@@ -31,6 +37,9 @@ jobs:
     steps:
       - checkout
       - ruby/load-cache
+      - run:
+          name: update bundler
+          command: gem update bundler
       - ruby/install-deps
       - ruby/run-tests
       - ruby/save-cache
@@ -41,6 +50,9 @@ jobs:
     steps:
       - checkout
       - ruby/load-cache
+      - run:
+          name: update bundler
+          command: gem update bundler
       - ruby/install-deps
       - ruby/run-tests
       - ruby/save-cache
