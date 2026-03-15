@@ -3,6 +3,7 @@ module Legion::Extensions::Sleepiq
     module Bed
       include Legion::Extensions::Helpers::Lex
       extend Legion::Extensions::Sleepiq::Helpers::Client
+
       def sleep_number(side: 'R', **)
         client.sleep_number(side)
       end

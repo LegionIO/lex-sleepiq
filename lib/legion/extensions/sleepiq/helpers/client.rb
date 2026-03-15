@@ -29,12 +29,12 @@ module Legion::Extensions::Sleepiq
         @bedid = result.bedid
       end
 
-      def username(**opts)
-        @username = find_setting('username', **opts)
+      def username(**)
+        @username = find_setting('username', **)
       end
 
-      def password(**opts)
-        @password = find_setting('password', **opts)
+      def password(**)
+        @password = find_setting('password', **)
       end
     end
   end
