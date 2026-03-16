@@ -44,12 +44,31 @@ Credentials are used for initial login. Session tokens are cached automatically 
 
 `Legion::Extensions::Sleepiq::Actors::Poll` automatically polls `Family#family_status` on an interval. This provides ongoing bed occupancy and pressure data without manual task triggers.
 
+## Standalone Client
+
+Use `lex-sleepiq` as a standalone library without the full LegionIO framework:
+
+```ruby
+require 'legion/extensions/sleepiq/client'
+
+client = Legion::Extensions::Sleepiq::Client.new(username: 'user@example.com', password: 'secret')
+
+# Session tokens are fetched automatically on first call
+client.status
+client.sleep_number(side: 'R')
+client.family_status
+client.pump_status
+client.sleeper
+client.sleep_data(date: '2026-03-15', interval: 'D1')
+```
+
+Session tokens (`awsalb`, `key`, `sessid`, `bedid`) are stored as instance variables and reused across calls. Call `client.login` explicitly to force re-authentication.
+
 ## Requirements
 
 - Ruby >= 3.4
-- [LegionIO](https://github.com/LegionIO/LegionIO) framework
 - Sleep Number SleepIQ account (username + password)
-- `legion-cache` for session token storage
+- [LegionIO](https://github.com/LegionIO/LegionIO) framework (optional — standalone Client works without it)
 
 ## License
 
