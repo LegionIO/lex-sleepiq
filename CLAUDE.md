@@ -23,6 +23,7 @@ Legion::Extensions::Sleepiq
 │   └── Sleeper      # Sleeper info, sleep data, sleep slice data
 ├── Helpers/
 │   └── Client       # SleepIQ::Client wrapper; session cached in legion-cache (TTL 600s)
+├── Client           # Standalone client class; includes all runners; self-managed session tokens
 └── Actors/
     └── Poll         # Polling actor: calls Family#family_status on interval
 ```
@@ -38,12 +39,15 @@ Legion::Extensions::Sleepiq
 | `lib/legion/extensions/sleepiq/runners/pump.rb` | pump_status, force_idle |
 | `lib/legion/extensions/sleepiq/runners/sleeper.rb` | sleeper, sleep_data, sleep_slice_data |
 | `lib/legion/extensions/sleepiq/helpers/client.rb` | Session management and SleepIQ::Client factory |
+| `lib/legion/extensions/sleepiq/client.rb` | Standalone Client class; includes all runners; owns session state |
 | `lib/legion/extensions/sleepiq/actors/poll.rb` | Poll actor targeting Family#family_status |
-| `lib/legion/extensions/sleepiq/version.rb` | Version constant (0.2.2) |
+| `lib/legion/extensions/sleepiq/version.rb` | Version constant (0.2.3) |
 
 ## Session Management
 
-The client helper authenticates via username/password and caches session tokens in `legion-cache`:
+### Framework path (Helpers::Client)
+
+When running inside the Legion framework, `Helpers::Client` authenticates via username/password and caches session tokens in `legion-cache`:
 
 | Cache Key | Contents | TTL |
 |-----------|----------|-----|
@@ -53,6 +57,16 @@ The client helper authenticates via username/password and caches session tokens 
 | `sleepiq_bedid` | Bed ID | 600s |
 
 If any session value is missing from cache, `login` is called automatically before the next API call.
+
+### Standalone path (Client class)
+
+`Legion::Extensions::Sleepiq::Client` manages session tokens as instance variables (`@awsalb`, `@key`, `@sessid`, `@bedid`) instead of using Legion::Cache. `login` is called automatically inside `client` whenever any token is `nil`. There is no TTL; tokens persist for the lifetime of the Client instance.
+
+```ruby
+c = Legion::Extensions::Sleepiq::Client.new(username: 'user@example.com', password: 's3cr3t')
+c.family_status   # calls login on first use, then returns family status
+c.sleep_number    # reuses existing session
+```
 
 ## Configuration
 
