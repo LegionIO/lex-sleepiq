@@ -10,6 +10,7 @@ Legion Extension that connects LegionIO to the Sleep Number SleepIQ API. Provide
 
 **GitHub**: https://github.com/LegionIO/lex-sleepiq
 **License**: MIT
+**Version**: 0.2.3
 
 ## Architecture
 
@@ -82,12 +83,6 @@ c.sleep_number    # reuses existing session
 }
 ```
 
-## Gemspec Notes
-
-- The gemspec still references the old Bitbucket URL (`bitbucket.org/legion-io/lex-sleepiq`). Update to `github.com/LegionIO/lex-sleepiq`.
-- Required Ruby version in gemspec is `>= 2.5.0` (stale). Framework requires >= 3.4.
-- `rubygems_mfa_required` metadata is not yet set.
-
 ## Dependencies
 
 | Gem | Purpose |
@@ -95,6 +90,8 @@ c.sleep_number    # reuses existing session
 | `sleepiq` (>= 0.3.0) | Sleep Number SleepIQ Ruby client |
 
 ## Development
+
+29 specs total.
 
 ```bash
 bundle install
