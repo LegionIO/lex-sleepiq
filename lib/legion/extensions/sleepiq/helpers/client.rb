@@ -3,29 +3,32 @@ require 'sleepiq'
 module Legion::Extensions::Sleepiq
   module Helpers
     module Client
+      extend Legion::Cache::Helper
+      extend Legion::Logging::Helper
+
       def client(**_opts)
-        @awsalb = Legion::Cache.get('sleepiq_awsalb')
-        @bedid = Legion::Cache.get('sleepiq_bedid')
-        @key = Legion::Cache.get('sleepiq_key')
-        @sessid = Legion::Cache.get('sleepiq_sessid')
+        @awsalb = cache_get('awsalb')
+        @bedid  = cache_get('bedid')
+        @key    = cache_get('key')
+        @sessid = cache_get('sessid')
 
         login if @awsalb.nil? || @key.nil? || @sessid.nil?
         ::SleepIQ::Client.new(awsalb: @awsalb, key: @key, sessid: @sessid, bedid: @bedid)
       rescue StandardError => e
-        Legion::Logging.fatal e.message
-        Legion::Logging.fatal e.backtrace
+        log.fatal e.message
+        log.fatal e.backtrace
         raise(e)
       end
 
       def login
         result = ::SleepIQ::Client.new(username: username, password: password)
-        Legion::Cache.set('sleepiq_sessid', result.sessid, ttl: 600)
+        cache_set('sessid', result.sessid, ttl: 600)
         @sessid = result.sessid
-        Legion::Cache.set('sleepiq_awsalb', result.awsalb, ttl: 600)
+        cache_set('awsalb', result.awsalb, ttl: 600)
         @awsalb = result.awsalb
-        Legion::Cache.set('sleepiq_key', result.key, ttl: 600)
+        cache_set('key', result.key, ttl: 600)
         @key = result.key
-        Legion::Cache.set('sleepiq_bedid', result.bedid, ttl: 600)
+        cache_set('bedid', result.bedid, ttl: 600)
         @bedid = result.bedid
       end
 
