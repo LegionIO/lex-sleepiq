@@ -10,7 +10,7 @@ Legion Extension that connects LegionIO to the Sleep Number SleepIQ API. Provide
 
 **GitHub**: https://github.com/LegionIO/lex-sleepiq
 **License**: MIT
-**Version**: 0.2.3
+**Version**: 0.2.4
 
 ## Architecture
 
@@ -23,7 +23,7 @@ Legion::Extensions::Sleepiq
 │   ├── Pump         # Pump status and force-idle
 │   └── Sleeper      # Sleeper info, sleep data, sleep slice data
 ├── Helpers/
-│   └── Client       # SleepIQ::Client wrapper; session cached in legion-cache (TTL 600s)
+│   └── Client       # SleepIQ::Client wrapper; session cached via cache_get/cache_set helpers (TTL 600s)
 ├── Client           # Standalone client class; includes all runners; self-managed session tokens
 └── Actors/
     └── Poll         # Polling actor: calls Family#family_status on interval
@@ -42,20 +42,20 @@ Legion::Extensions::Sleepiq
 | `lib/legion/extensions/sleepiq/helpers/client.rb` | Session management and SleepIQ::Client factory |
 | `lib/legion/extensions/sleepiq/client.rb` | Standalone Client class; includes all runners; owns session state |
 | `lib/legion/extensions/sleepiq/actors/poll.rb` | Poll actor targeting Family#family_status |
-| `lib/legion/extensions/sleepiq/version.rb` | Version constant (0.2.3) |
+| `lib/legion/extensions/sleepiq/version.rb` | Version constant (0.2.4) |
 
 ## Session Management
 
 ### Framework path (Helpers::Client)
 
-When running inside the Legion framework, `Helpers::Client` authenticates via username/password and caches session tokens in `legion-cache`:
+When running inside the Legion framework, `Helpers::Client` authenticates via username/password and caches session tokens using `cache_get`/`cache_set` helpers (TTL 600s per key).
 
 | Cache Key | Contents | TTL |
 |-----------|----------|-----|
-| `sleepiq_awsalb` | AWS ALB cookie | 600s |
-| `sleepiq_key` | Session key | 600s |
-| `sleepiq_sessid` | Session ID | 600s |
-| `sleepiq_bedid` | Bed ID | 600s |
+| `awsalb` | AWS ALB cookie | 600s |
+| `key` | Session key | 600s |
+| `sessid` | Session ID | 600s |
+| `bedid` | Bed ID | 600s |
 
 If any session value is missing from cache, `login` is called automatically before the next API call.
 
