@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lex-sleepiq (0.2.3)
+    lex-sleepiq (0.2.4)
       legion-cache (>= 1.3.11)
       legion-crypt (>= 1.4.9)
       legion-data (>= 1.4.17)
@@ -162,7 +162,9 @@ GEM
       thor
     sorted_set (1.1.0)
       rbtree
+    sqlite3 (2.9.2-aarch64-linux-gnu)
     sqlite3 (2.9.2-arm64-darwin)
+    sqlite3 (2.9.2-x86_64-linux-gnu)
     thor (1.5.0)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
@@ -174,7 +176,9 @@ GEM
       net-http-persistent (~> 4.0, >= 4.0.2)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-25
+  x86_64-linux
 
 DEPENDENCIES
   lex-sleepiq!
